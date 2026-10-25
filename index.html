@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RathodX BuildCalc | Free Construction Cost Calculator India</title>
+<style>body{font-family:system-ui;background:#10131a;color:#f1f3f7;margin:0;padding:32px}main{max-width:760px;margin:auto}h1{font-size:36px}p{color:#aeb8c9}.panel{background:#1b2230;border:1px solid #334155;padding:25px;border-radius:16px;margin:22px 0}label{display:block;margin:15px 0}input,select{display:block;margin-top:6px;width:95%;padding:12px;border-radius:8px;border:1px solid #4b5563;background:#0c1320;color:white}button{padding:14px 24px;border:0;background:#d6b36b;color:#10131a;border-radius:8px;font-weight:bold;cursor:pointer}.result{font-size:28px;color:#d6b36b;margin-top:16px}.small{font-size:13px}</style>
+<main><h1>RathodX BuildCalc</h1><p>Free construction budget estimator for India. No signup. No personal data collected.</p>
+<div class="panel"><h2>House construction estimate</h2>
+<label>Built-up area (sq ft)<input id="area" type="number" value="1000" min="1"></label>
+<label>Construction rate (₹/sq ft)<input id="rate" type="number" value="1800" min="1"></label>
+<label>Contingency (%)<input id="buffer" type="number" value="10" min="0" max="100"></label>
+<button onclick="calc()">Calculate budget</button><div id="out" class="result" aria-live="polite"></div><p id="details"></p></div>
+<div class="panel"><h2>Paintable wall area</h2><label>Wall length (ft)<input id="len" type="number" value="40"></label><label>Wall height (ft)<input id="height" type="number" value="10"></label><label>Openings area (sq ft)<input id="open" type="number" value="50"></label><button onclick="paint()">Calculate area</button><div id="paintout" class="result"></div></div>
+<p class="small">Estimates only. Local material, labour, site conditions, structural design, approvals and taxes may change actual cost. Rates are entered by you; this tool does not claim live market prices.</p>
+</main><script>
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
+function calc(){let a=+document.getElementById('area').value,r=+document.getElementById('rate').value,b=+document.getElementById('buffer').value;if(a<=0||r<=0||b<0){document.getElementById('out').textContent='Enter valid positive values';return}let base=a*r,extra=base*b/100;document.getElementById('out').textContent=money(base+extra);document.getElementById('details').textContent='Base '+money(base)+' + contingency '+money(extra)}
+function paint(){let a=+document.getElementById('len').value,h=+document.getElementById('height').value,o=+document.getElementById('open').value;document.getElementById('paintout').textContent=(a>0&&h>0&&o>=0)?Math.max(0,a*h-o).toLocaleString('en-IN')+' sq ft':'Enter valid values'}
+calc();paint();</script></html>
